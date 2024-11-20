@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import './App.css'
 import axios from 'axios'
+import Navbar from './components/Navbar'
 
 function App() {
   const [data, setData] = useState([])
@@ -16,7 +16,8 @@ function App() {
   }, [])
 
   return (
-    <>
+    <main>
+      <Navbar />
       <h1>Inventory App</h1>
       {data.map((fruit) => {
         return (
@@ -25,7 +26,7 @@ function App() {
           </div>
         )
       })}
-    </>
+    </main>
   )
 }
 
