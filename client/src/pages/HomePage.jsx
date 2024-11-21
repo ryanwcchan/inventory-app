@@ -10,7 +10,7 @@ export default function HomePage() {
 
   return (
     <div className="m-[3rem]">
-      <h1 className="text-3xl font-bold">New Inventory</h1>
+      <h1 className="text-3xl font-bold">Inventory List</h1>
       {data ? (
         data.map((fruit) => {
           return (
