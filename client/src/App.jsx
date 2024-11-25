@@ -8,7 +8,7 @@ function App() {
 
   const fetchAPI = async () => {
     const response = await axios.get("http://localhost:3000/api");
-    setData(response.data.fruits);
+    setData(response.data.inventory);
     console.log(response.data);
   };
 

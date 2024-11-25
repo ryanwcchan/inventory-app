@@ -9,9 +9,15 @@ const corsOptions = {
 app.use(express.json())
 app.use(cors(corsOptions))
 
+const categoryRoutes = require("./routes/categoryRoutes")
+const itemRoutes = require("./routes/itemRoutes")
+
+app.use("/api/categories", categoryRoutes)
+app.use("/api/items", itemRoutes)
+
 app.get("/api", (req, res) => {
     res.json({
-        fruits: [
+        inventory: [
             "Item 1",
             "Item 2",
             "Item 3"
@@ -24,5 +30,5 @@ app.get("/", (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log(`Example app listening on port http://localhost:${port}`)
+    console.log(`Sever listening on port http://localhost:${port}`)
 })
