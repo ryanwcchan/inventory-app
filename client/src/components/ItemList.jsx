@@ -1,4 +1,4 @@
-import axios from "axios";
+import { getAllItems } from "../API/itemCall";
 import React, { useEffect, useState } from "react";
 
 export default function ItemList() {
@@ -6,12 +6,8 @@ export default function ItemList() {
 
   useEffect(() => {
     const fetchItems = async () => {
-      try {
-        const { data } = await axios.get("http://localhost:3000/api/items");
-        setItems(data);
-      } catch (error) {
-        console.error("Error fetching items:", error);
-      }
+      const data = await getAllItems();
+      setItems(data);
     };
 
     fetchItems();
@@ -23,7 +19,7 @@ export default function ItemList() {
     <div>
       <table>
         <thead>
-          <tr>
+          <tr className="bg-gray-200">
             <th>Item Name</th>
             <th>Price</th>
             <th>Category ID</th>
@@ -31,7 +27,7 @@ export default function ItemList() {
             <th>Expiry Date</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="overflow-scroll border-2 border-black h-[10rem]">
           {items.map((item) => (
             <tr key={item.id}>
               <td className="px-4 py-2">{item.name}</td>
