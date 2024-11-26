@@ -3,6 +3,7 @@ import CategoryList from "../components/CategoryList";
 import AddCategoryModal from "../components/AddCategoryModal";
 import RedButton from "../components/RedButton";
 import Modal from "../components/Modal";
+import ConfirmationModal from "../components/ConfirmationModal";
 import { useState, useEffect } from "react";
 import { getAllCategories, deleteCategory } from "../API/categoryCall";
 
@@ -10,6 +11,8 @@ export default function Inventory() {
   const [showModal, setShowModal] = useState(false);
   const [categories, setCategories] = useState([]);
   const [deleteMode, setDeleteMode] = useState(false);
+  const [confirmModal, setConfirmModal] = useState(false);
+  const [categoryDeleteId, setCategoryDeleteId] = useState(null);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -34,6 +37,17 @@ export default function Inventory() {
     } catch (error) {
       console.error("Error deleting category:", error);
     }
+    setConfirmModal(false);
+  };
+
+  const triggerDelete = (categoryId) => {
+    setConfirmModal(true);
+    setCategoryDeleteId(categoryId);
+  };
+
+  const handleCancel = () => {
+    setConfirmModal(false);
+    setCategoryDeleteId(null);
   };
 
   return (
@@ -61,11 +75,16 @@ export default function Inventory() {
       <CategoryList
         categories={categories}
         deleteMode={deleteMode}
-        handleDelete={handleDeleteCategory}
+        handleDelete={triggerDelete}
       />
       <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
         <AddCategoryModal onAddCategory={handleAddCategory} />
       </Modal>
+      <ConfirmationModal
+        isOpen={confirmModal}
+        onClose={() => handleCancel()}
+        onConfirm={() => handleDeleteCategory(categoryDeleteId)}
+      />
     </div>
   );
 }
