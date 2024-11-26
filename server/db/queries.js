@@ -3,18 +3,35 @@ const pool = require("./pool")
 // Category queries
 
 async function getAllCategories() {
-    const { rows } = await pool.query("SELECT * FROM categories")
-    return rows
+    try {
+        const { rows } = await pool.query("SELECT * FROM categories")
+        return rows
+    } catch (error) {
+        console.error("Error fetching categories:", error)
+        throw error
+    }
+    
 }
 
 async function getCategoryById(id) {
-    const { rows } = await pool.query("SELECT * FROM categories WHERE id = $1", [id])
-    return rows[0]
+    try {
+        const { rows } = await pool.query("SELECT * FROM categories WHERE id = $1", [id])
+        return rows[0]
+    } catch (error) {
+        console.error("Error fetching category by id:", error)
+        throw error
+    }
 }
 
 async function createCategory(name) {
-    const { rows } = await pool.query("INSERT INTO categories (name) VALUES ($1) RETURNING *", [name])
-    return rows[0]
+    try {
+        const query = "INSERT INTO categories (name) VALUES ($1) RETURNING *"
+        const { rows } = await pool.query(query, [name])
+        return rows[0]
+    } catch (error) {
+        console.error("Error creating category:", error)
+        throw error
+    }
 }
 
 // Item queries
@@ -29,8 +46,9 @@ async function getItemById(id) {
     return rows[0]
 }
 
-async function createItem(name) {
-    const { rows } = await pool.query("INSERT INTO items (name) VALUES ($1) RETURNING *", [name])
+async function createItem(name, price, category_id, type, expiry_date) {
+    const query = "INSERT INTO items (name, price, category_id, type, expiry_date) VALUES ($1, $2, $3, $4, $5) RETURNING *"
+    const { rows } = await pool.query(query, [name, price, category_id, type, expiry_date])
     return rows[0]
 }
 

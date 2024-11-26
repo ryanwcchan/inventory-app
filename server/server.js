@@ -15,20 +15,6 @@ const itemRoutes = require("./routes/itemRoutes")
 app.use("/api/categories", categoryRoutes)
 app.use("/api/items", itemRoutes)
 
-app.get("/api", (req, res) => {
-    res.json({
-        inventory: [
-            "Item 1",
-            "Item 2",
-            "Item 3"
-        ]
-    })
-})
-
-app.get("/", (req, res) => {
-    res.send("Hello World!")
-})
-
 app.listen(port, () => {
     console.log(`Sever listening on port http://localhost:${port}`)
 })
