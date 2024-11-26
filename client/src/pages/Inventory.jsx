@@ -84,6 +84,10 @@ export default function Inventory() {
         isOpen={confirmModal}
         onClose={() => handleCancel()}
         onConfirm={() => handleDeleteCategory(categoryDeleteId)}
+        title={"Are you sure you want to delete this category?"}
+        message={
+          "This will delete all items in this category. This action cannot be undone."
+        }
       />
     </div>
   );

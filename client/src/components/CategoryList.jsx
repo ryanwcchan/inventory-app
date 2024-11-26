@@ -4,7 +4,7 @@ export default function CategoryList({ categories, deleteMode, handleDelete }) {
   if (!categories) return <div>Loading...</div>;
 
   return (
-    <ul className="flex gap-6 items-center justify-center flex-wrap my-[3rem]">
+    <ul className="flex gap-6 items-center flex-wrap my-[3rem]">
       {categories.map((category) => (
         <li
           key={category.id}
