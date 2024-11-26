@@ -34,9 +34,21 @@ async function createCategory(name) {
     }
 }
 
+async function deleteCategory(id) {
+    try {
+        const query = "DELETE FROM categories WHERE id = $1 RETURNING *"
+        const { rows } = await pool.query(query, [id])
+        return rows[0]
+    } catch (error) {
+        console.error("Error deleting category:", error)
+        throw error
+    }
+}
+
 
 module.exports = {
     getAllCategories,
     getCategoryById,
     createCategory,
+    deleteCategory
 }

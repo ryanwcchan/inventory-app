@@ -4,11 +4,12 @@ import AddCategoryModal from "../components/AddCategoryModal";
 import RedButton from "../components/RedButton";
 import Modal from "../components/Modal";
 import { useState, useEffect } from "react";
-import { getAllCategories } from "../API/categoryCall";
+import { getAllCategories, deleteCategory } from "../API/categoryCall";
 
 export default function Inventory() {
   const [showModal, setShowModal] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [deleteMode, setDeleteMode] = useState(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -24,20 +25,44 @@ export default function Inventory() {
     setShowModal(false);
   };
 
+  const handleDeleteCategory = async (categoryId) => {
+    try {
+      await deleteCategory(categoryId);
+      setCategories((prevCategories) =>
+        prevCategories.filter((category) => category.id !== categoryId)
+      );
+    } catch (error) {
+      console.error("Error deleting category:", error);
+    }
+  };
+
   return (
     <div className="m-[3rem]">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Categories</h1>
-        <RedButton
-          func={() => {
-            console.log("clicked");
-            setShowModal(true);
-          }}
-        >
-          Add Category
-        </RedButton>
+        <div className="flex gap-4">
+          <RedButton
+            func={() => {
+              console.log("clicked");
+              setShowModal(true);
+            }}
+          >
+            Add
+          </RedButton>
+          <RedButton
+            func={() => {
+              setDeleteMode(!deleteMode);
+            }}
+          >
+            Delete
+          </RedButton>
+        </div>
       </div>
-      <CategoryList categories={categories} />
+      <CategoryList
+        categories={categories}
+        deleteMode={deleteMode}
+        handleDelete={handleDeleteCategory}
+      />
       <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
         <AddCategoryModal onAddCategory={handleAddCategory} />
       </Modal>

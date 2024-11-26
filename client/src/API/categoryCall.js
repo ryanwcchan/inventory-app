@@ -28,3 +28,12 @@ export const createCategory = async (name) => {
         console.error("Error creating category:", error);
     }
 }
+
+export const deleteCategory = async (id) => {
+    try {
+        const { data } = await axios.delete(`${BASE_URL}/delete/${id}`);
+        return data;
+    } catch (error) {
+        console.error("Error deleting category:", error);
+    }
+}
