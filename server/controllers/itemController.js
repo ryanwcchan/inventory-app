@@ -35,9 +35,9 @@ async function getItemsByCategory(req, res) {
 }
 
 async function createItem(req, res) {
-    const { name, price, category_id, type, expiry_date } = req.body;
+    const { name, price, category_id, type, expiry_date, date_created } = req.body;
     try {
-        const item = await db.createItem(name, price, category_id, type, expiry_date);
+        const item = await db.createItem(name, price, category_id, type, expiry_date, date_created);
         res.status(201).json(item);
     } catch (error) {
         console.error('Error creating item:', error);

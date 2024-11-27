@@ -43,7 +43,7 @@ async function getItemsByCategory(categoryId) {
 }
 
 async function createItem(name, price, category_id, type, expiry_date, date_created) {
-    const query = "INSERT INTO items (name, price, category_id, type, expiry_date, items.date_created,) VALUES ($1, $2, $3, $4, $5) RETURNING *"
+    const query = "INSERT INTO items (name, price, category_id, type, expiry_date, date_created) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *"
     const { rows } = await pool.query(query, [name, price, category_id, type, expiry_date, date_created])
     return rows[0]
 }

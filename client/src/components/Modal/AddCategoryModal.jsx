@@ -1,4 +1,3 @@
-import RedButton from "../Buttons/RedButton";
 import { useState } from "react";
 import { createCategory } from "../../API/categoryCall";
 
@@ -23,7 +22,7 @@ export default function AddCategoryModal({ onAddCategory }) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center mx-2">
+    <div className="flex flex-col items-center justify-center mx-6">
       <h1 className="text-3xl font-bold">Add New Category</h1>
       <form
         onSubmit={handleSubmit}

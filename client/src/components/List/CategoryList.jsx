@@ -18,7 +18,7 @@ export default function CategoryList({ categories, deleteMode, handleDelete }) {
               handleDelete(category.id);
             } else {
               navigate(`/inventory/${category.id}`, {
-                state: { categoryName: category.name },
+                state: { categories },
               });
             }
           }}
