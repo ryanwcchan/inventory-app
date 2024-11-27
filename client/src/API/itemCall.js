@@ -20,6 +20,15 @@ export const getItemById = async (id) => {
     }
 }
 
+export const getItemsByCategory = async (id) => {
+    try {
+        const { data } = await axios.get(`${BASE_URL}/category/${id}`);
+        return data;
+    } catch (error) {
+        console.error("Error fetching items by category:", error);
+    }
+}
+
 export const createItem = async (name, price, category_id, type, expiry_date) => {
     try {
         const { data } = await axios.post(BASE_URL, { name, price, category_id, type, expiry_date });

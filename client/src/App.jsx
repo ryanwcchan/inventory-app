@@ -5,10 +5,12 @@ import { Outlet, useOutletContext } from "react-router-dom";
 
 function App() {
   return (
-    <main>
+    <div>
       <Navbar />
-      <Outlet />
-    </main>
+      <main>
+        <Outlet />
+      </main>
+    </div>
   );
 }
 

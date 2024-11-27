@@ -7,6 +7,7 @@ import ErrorPage from "./pages/ErrorPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import Inventory from "./pages/Inventory.jsx";
 import Profile from "./pages/Profile.jsx";
+import CategoryPage from "./pages/CategoryPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
+      },
+      {
+        path: "/inventory/:categoryId",
+        element: <CategoryPage />,
       },
     ],
   },

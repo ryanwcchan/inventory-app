@@ -24,6 +24,16 @@ async function getItemById(req, res) {
     }
 }
 
+async function getItemsByCategory(req, res) {
+    try {
+        const items = await db.getItemsByCategory(req.params.id)
+        res.status(200).json(items)
+    } catch (error) {
+        console.error("Error fetching items by category:", error)
+        res.status(500).json({ message: "Error fetching items by category" })
+    }
+}
+
 async function createItem(req, res) {
     const { name, price, category_id, type, expiry_date } = req.body;
     try {
@@ -38,5 +48,6 @@ async function createItem(req, res) {
 module.exports = {
     getAllItems,
     getItemById,
-    createItem
+    createItem,
+    getItemsByCategory
 }
