@@ -11,6 +11,7 @@ async function getAllItems() {
             items.type, 
             items.expiry_date, 
             items.category_id,
+            items.date_created,
             categories.name AS category_name
         FROM items
         JOIN categories ON items.category_id = categories.id
@@ -32,6 +33,7 @@ async function getItemsByCategory(categoryId) {
             items.type, 
             items.expiry_date, 
             items.category_id,
+            items.date_created,
             categories.name AS category_name
         FROM items 
         JOIN categories ON items.category_id = categories.id
@@ -40,9 +42,9 @@ async function getItemsByCategory(categoryId) {
     return rows
 }
 
-async function createItem(name, price, category_id, type, expiry_date) {
-    const query = "INSERT INTO items (name, price, category_id, type, expiry_date) VALUES ($1, $2, $3, $4, $5) RETURNING *"
-    const { rows } = await pool.query(query, [name, price, category_id, type, expiry_date])
+async function createItem(name, price, category_id, type, expiry_date, date_created) {
+    const query = "INSERT INTO items (name, price, category_id, type, expiry_date, items.date_created,) VALUES ($1, $2, $3, $4, $5) RETURNING *"
+    const { rows } = await pool.query(query, [name, price, category_id, type, expiry_date, date_created])
     return rows[0]
 }
 

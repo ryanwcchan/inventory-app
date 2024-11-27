@@ -18,7 +18,8 @@ const createTables = async () => {
         price DECIMAL(10, 2) NOT NULL,
         category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
         type VARCHAR(50) NOT NULL,
-        expiry_date DATE
+        expiry_date DATE,
+        date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
     `;
 

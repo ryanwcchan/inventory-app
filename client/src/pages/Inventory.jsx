@@ -1,9 +1,9 @@
 import React from "react";
-import CategoryList from "../components/CategoryList";
-import AddCategoryModal from "../components/AddCategoryModal";
-import RedButton from "../components/RedButton";
-import Modal from "../components/Modal";
-import ConfirmationModal from "../components/ConfirmationModal";
+import CategoryList from "../components/List/CategoryList";
+import AddCategoryModal from "../components/Modal/AddCategoryModal";
+import RedButton from "../components/Buttons/RedButton";
+import Modal from "../components/Modal/Modal";
+import ConfirmationModal from "../components/Modal/ConfirmationModal";
 import { useState, useEffect } from "react";
 import { getAllCategories, deleteCategory } from "../API/categoryCall";
 
@@ -84,7 +84,9 @@ export default function Inventory() {
         isOpen={confirmModal}
         onClose={() => handleCancel()}
         onConfirm={() => handleDeleteCategory(categoryDeleteId)}
-        title={"Are you sure you want to delete this category?"}
+        title={`Are you sure you want to delete "${
+          categories.find((category) => category.id === categoryDeleteId)?.name
+        }" category?`}
         message={
           "This will delete all items in this category. This action cannot be undone."
         }

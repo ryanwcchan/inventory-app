@@ -29,9 +29,9 @@ export const getItemsByCategory = async (id) => {
     }
 }
 
-export const createItem = async (name, price, category_id, type, expiry_date) => {
+export const createItem = async (name, price, category_id, type, expiry_date, date_created) => {
     try {
-        const { data } = await axios.post(BASE_URL, { name, price, category_id, type, expiry_date });
+        const { data } = await axios.post(BASE_URL, { name, price, category_id, type, expiry_date, date_created });
         return data;
     } catch (error) {
         console.error("Error creating item:", error);

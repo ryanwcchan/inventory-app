@@ -14,10 +14,13 @@ export default function CategoryList({ categories, deleteMode, handleDelete }) {
           className="text-2xl hover:text-red-600 cursor-pointer 
           border-2 border-black px-4 py-2 select-none"
           onClick={() => {
-            console.log(category.id, category.name);
-            navigate(`/inventory/${category.id}`, {
-              state: { categoryName: category.name },
-            });
+            if (deleteMode) {
+              handleDelete(category.id);
+            } else {
+              navigate(`/inventory/${category.id}`, {
+                state: { categoryName: category.name },
+              });
+            }
           }}
         >
           {category.name}

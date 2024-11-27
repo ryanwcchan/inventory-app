@@ -1,6 +1,6 @@
-import RedButton from "./RedButton";
+import RedButton from "../Buttons/RedButton";
 import { useState } from "react";
-import { createCategory } from "../API/categoryCall";
+import { createCategory } from "../../API/categoryCall";
 
 export default function AddCategoryModal({ onAddCategory }) {
   const [categoryName, setCategoryName] = useState("");

@@ -1,4 +1,4 @@
-import { getAllItems } from "../API/itemCall";
+import { getAllItems } from "../../API/itemCall";
 import React, { useEffect, useState } from "react";
 import ListTable from "./ListTable";
 

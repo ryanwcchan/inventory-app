@@ -10,6 +10,7 @@ export default function ListTable({ items, showCategory }) {
           {showCategory && <th>Category</th>}
           <th>Type</th>
           <th>Expiry Date</th>
+          <th>Date Created</th>
         </tr>
       </thead>
       <tbody className="overflow-y-auto border-2 border-black h-[10rem]">
@@ -25,6 +26,11 @@ export default function ListTable({ items, showCategory }) {
             </td>
             <td className="px-4 py-2 text-center">
               {item.expiry_date ? item.expiry_date.split("T")[0] : "N/A"}
+            </td>
+            <td className="px-4 py-2 text-center">
+              {item.date_created
+                ? new Date(item.date_created).toLocaleString()
+                : "N/A"}
             </td>
           </tr>
         ))}

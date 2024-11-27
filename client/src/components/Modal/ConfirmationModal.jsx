@@ -1,5 +1,5 @@
 import React from "react";
-import RedButton from "./RedButton";
+import RedButton from "../Buttons/RedButton";
 
 export default function ConfirmationModal({
   isOpen,
