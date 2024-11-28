@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function CategoryList({ categories, deleteMode, handleDelete }) {
-  if (!categories) return <div>Loading...</div>;
-
   const navigate = useNavigate();
+
+  // if (!Array.isArray(categories) || categories.length === 0)
+  //   return <div>Loading...</div>;
 
   return (
     <ul className="flex gap-6 items-center flex-wrap my-[3rem]">

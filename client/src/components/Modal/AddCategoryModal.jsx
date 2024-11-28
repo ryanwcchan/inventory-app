@@ -3,12 +3,10 @@ import { createCategory } from "../../API/categoryCall";
 
 export default function AddCategoryModal({ onAddCategory }) {
   const [categoryName, setCategoryName] = useState("");
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setError(null);
 
     try {
@@ -16,8 +14,7 @@ export default function AddCategoryModal({ onAddCategory }) {
       onAddCategory(newCategory);
     } catch (err) {
       console.error(error);
-    } finally {
-      setLoading(false);
+      setError("Failed to create category");
     }
   };
 
@@ -38,15 +35,16 @@ export default function AddCategoryModal({ onAddCategory }) {
             value={categoryName}
             onChange={(e) => setCategoryName(e.target.value)}
             autoComplete="off"
+            required
           />
         </div>
+        {error && <p className="text-red-600">{error}</p>}{" "}
         <button
           type="submit"
           className="bg-red-600 hover:bg-red-700 text-white 
             font-bold py-2 px-4 rounded cursor-pointer select-none"
-          disabled={loading}
         >
-          Add
+          {"Add"}
         </button>
       </form>
     </div>

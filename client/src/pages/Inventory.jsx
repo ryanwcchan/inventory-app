@@ -13,11 +13,26 @@ export default function Inventory() {
   const [deleteMode, setDeleteMode] = useState(false);
   const [confirmModal, setConfirmModal] = useState(false);
   const [categoryDeleteId, setCategoryDeleteId] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [loadingMsg, setLoadingMsg] = useState("Loading Categories...");
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const data = await getAllCategories();
-      setCategories(data);
+      try {
+        const data = await getAllCategories();
+        if (data) {
+          setCategories(data);
+          setLoading(false);
+          setError(null);
+        } else {
+          setLoadingMsg("Failed to fetch categories.");
+        }
+      } catch (error) {
+        console.log("Error fetching categories:", error);
+        setError("Failed to load categories. Please try again later.");
+        setCategories([]);
+      }
     };
 
     fetchCategories();
@@ -72,11 +87,17 @@ export default function Inventory() {
           </RedButton>
         </div>
       </div>
-      <CategoryList
-        categories={categories}
-        deleteMode={deleteMode}
-        handleDelete={triggerDelete}
-      />
+      {error && <p className="text-red-500">{error}</p>}
+      {loading && !error ? (
+        <p>{loadingMsg}</p>
+      ) : (
+        <CategoryList
+          categories={categories}
+          deleteMode={deleteMode}
+          handleDelete={triggerDelete}
+        />
+      )}
+
       <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
         <AddCategoryModal onAddCategory={handleAddCategory} />
       </Modal>
@@ -85,7 +106,10 @@ export default function Inventory() {
         onClose={() => handleCancel()}
         onConfirm={() => handleDeleteCategory(categoryDeleteId)}
         title={`Are you sure you want to delete "${
-          categories.find((category) => category.id === categoryDeleteId)?.name
+          categories && categoryDeleteId
+            ? categories.find((category) => category.id === categoryDeleteId)
+                ?.name || ""
+            : ""
         }" category?`}
         message={
           "This will delete all items in this category. This action cannot be undone."
