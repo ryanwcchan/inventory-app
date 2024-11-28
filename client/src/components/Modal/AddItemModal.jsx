@@ -12,6 +12,8 @@ export default function AddItemModal({ categories, categoryId, onItemAdded }) {
     date_created: new Date(),
   });
 
+  const [error, setError] = useState(null);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -22,6 +24,13 @@ export default function AddItemModal({ categories, categoryId, onItemAdded }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const price = parseFloat(formData.itemPrice);
+    if (isNaN(price)) {
+      setError("Please enter a valid price");
+      return;
+    }
+
     try {
       const newItem = await createItem(
         formData.name,
@@ -32,8 +41,10 @@ export default function AddItemModal({ categories, categoryId, onItemAdded }) {
         formData.date_created
       );
       onItemAdded(newItem);
+      setError("");
     } catch (err) {
       console.error(err);
+      setError("An error occurred while adding the item.");
     }
   };
 
@@ -55,6 +66,7 @@ export default function AddItemModal({ categories, categoryId, onItemAdded }) {
             required
             value={formData.name}
             onChange={handleChange}
+            autoComplete="off"
           />
         </div>
         <div className="flex flex-col w-full max-w-md">
@@ -68,7 +80,9 @@ export default function AddItemModal({ categories, categoryId, onItemAdded }) {
             required
             value={formData.itemPrice}
             onChange={handleChange}
+            autoComplete="off"
           />
+          {error && <p className="text-red-600 text-sm">{error}</p>}
         </div>
 
         <div className="flex flex-col w-full max-w-md">
@@ -101,6 +115,7 @@ export default function AddItemModal({ categories, categoryId, onItemAdded }) {
             required
             value={formData.type}
             onChange={handleChange}
+            autoComplete="off"
           />
         </div>
 

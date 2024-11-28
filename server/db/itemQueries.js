@@ -48,9 +48,16 @@ async function createItem(name, price, category_id, type, expiry_date, date_crea
     return rows[0]
 }
 
+async function deleteItem(id) {
+    const query = "DELETE FROM items WHERE id = $1 RETURNING *"
+    const { rows } = await pool.query(query, [id])
+    return rows[0]
+}
+
 module.exports = {
     getAllItems,
     getItemById,
     createItem,
-    getItemsByCategory
+    getItemsByCategory,
+    deleteItem
 }

@@ -45,9 +45,21 @@ async function createItem(req, res) {
     }
 }
 
+async function deleteItem(req, res) {
+    const { id } = req.params;
+    try {
+        const item = await db.deleteItem(id);
+        res.status(200).json(item);
+    } catch (error) {
+        console.error('Error deleting item:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
 module.exports = {
     getAllItems,
     getItemById,
     createItem,
-    getItemsByCategory
+    getItemsByCategory,
+    deleteItem
 }

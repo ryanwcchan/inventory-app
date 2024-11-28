@@ -37,3 +37,12 @@ export const createItem = async (name, price, category_id, type, expiry_date, da
         console.error("Error creating item:", error);
     }
 }
+
+export const deleteItem = async (id) => {
+    try {
+        const { data } = await axios.delete(`${BASE_URL}/delete/${id}`);
+        return data;
+    } catch (error) {
+        console.error("Error deleting item:", error);
+    }
+}
