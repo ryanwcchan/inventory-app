@@ -25,9 +25,11 @@ export default function HomePage() {
     fetchItems();
   }, []);
 
-  const filteredItems = items.filter((item) =>
-    item.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredItems = Array.isArray(items)
+    ? items.filter((item) =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : [];
 
   const handleClearSearch = () => {
     setSearchQuery("");
@@ -44,13 +46,16 @@ export default function HomePage() {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
       </div>
-      {loading ? (
+      {loading && <p>Loading...</p>}
+      {error && <p className="text-red-500">{error}</p>}
+      <ItemList items={filteredItems} />
+      {/* {loading ? (
         <p>Loading...</p>
       ) : error ? (
         <p>{error}</p>
       ) : (
         <ItemList items={filteredItems} />
-      )}
+      )} */}
     </div>
   );
 }
