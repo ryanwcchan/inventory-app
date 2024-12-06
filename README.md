@@ -2,6 +2,11 @@
 
 This is an inventory management application that helps users track, manage, and update their home inventory.
 
+# Live Preview
+https://inventory-app-24a9.onrender.com/
+
+Note: Using free tier PostgreSQL Database on Render, if data does not load it means the database free period has ended.
+
 ## Features
 
 - **Add Items**: Add new items to the inventory with details like name, category, type and price.
